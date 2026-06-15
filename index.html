@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Constel Advisory</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--primary:#05070f;
+--secondary:#0f172a;
+--accent:#d4af37;
+--glass:rgba(255,255,255,0.05);
+--border:rgba(255,255,255,0.08);
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Inter',sans-serif;
+background:radial-gradient(circle at top left,#111827 0%,#05070f 50%);
+color:white;
+overflow-x:hidden;
+line-height:1.7;
+}
+
+/* Ambient Glow */
+body::before,
+body::after{
+content:'';
+position:fixed;
+width:700px;
+height:700px;
+border-radius:50%;
+filter:blur(120px);
+pointer-events:none;
+z-index:0;
+animation:floatGlow 12s ease-in-out infinite alternate;
+}
+
+body::before{
+background:rgba(212,175,55,0.10);
+top:-250px;
+left:-150px;
+}
+
+body::after{
+background:rgba(255,255,255,0.05);
+bottom:-250px;
+right:-150px;
+animation-delay:4s;
+}
+
+@keyframes floatGlow{
+from{transform:translateY(0) translateX(0)}
+to{transform:translateY(40px) translateX(30px)}
+}
+
+/* Top Banner */
+.top-banner{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+background:#d4af37;
+color:#000;
+padding:8px 0;
+font-weight:600;
+overflow:hidden;
+white-space:nowrap;
+z-index:1200;
+}
+
+.banner-track{
+display:inline-block;
+padding-left:100%;
+animation:marquee 24s linear infinite;
+}
+
+@keyframes marquee{
+0%{transform:translateX(0)}
+100%{transform:translateX(-100%)}
+}
+
+/* Header */
+header{
+position:fixed;
+top:38px;
+width:100%;
+padding:18px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(5,7,15,0.68);
+backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(255,255,255,0.05);
+z-index:1100;
+}
+
+.logo{
+font-family:'Playfair Display';
+font-size:26px;
+letter-spacing:3px;
+background:linear-gradient(90deg,#fff,#d4af37);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+nav a{
+margin-left:28px;
+color:#bdbdbd;
+text-decoration:none;
+font-size:14px;
+letter-spacing:1px;
+transition:.3s;
+position:relative;
+}
+
+nav a::after{
+content:'';
+position:absolute;
+left:0;
+bottom:-6px;
+width:0;
+height:1px;
+background:#d4af37;
+transition:.3s;
+}
+
+nav a:hover{
+color:var(--accent);
+text-shadow:0 0 18px rgba(212,175,55,.6);
+}
+
+nav a:hover::after{
+width:100%;
+}
+
+/* Sections */
+section{
+padding:130px 80px;
+position:relative;
+z-index:1;
+border-top:1px solid rgba(212,175,55,0.08);
+}
+
+/* Hero */
+.hero{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding-top:240px;
+}
+
+.main-title{
+font-size:88px;
+font-family:'Playfair Display';
+letter-spacing:5px;
+line-height:1.1;
+background:linear-gradient(90deg,#ffffff,#d4af37);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.main-tagline{
+margin-top:18px;
+font-size:18px;
+letter-spacing:5px;
+opacity:.7;
+text-transform:uppercase;
+}
+
+.hero-divider{
+width:140px;
+height:1px;
+background:linear-gradient(90deg,transparent,#d4af37,transparent);
+margin:34px auto;
+}
+
+.cta{
+padding:16px 38px;
+border-radius:50px;
+border:1px solid rgba(255,255,255,0.15);
+background:rgba(255,255,255,0.04);
+color:white;
+font-weight:600;
+letter-spacing:1px;
+cursor:pointer;
+transition:.4s;
+backdrop-filter:blur(10px);
+}
+
+.cta:hover{
+transform:translateY(-6px) scale(1.03);
+box-shadow:0 0 35px rgba(212,175,55,.35);
+background:rgba(255,255,255,0.08);
+}
+
+/* Grid */
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:36px;
+max-width:1250px;
+margin:70px auto 0;
+}
+
+/* Cards */
+.card{
+position:relative;
+padding:34px;
+background:linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));
+border:1px solid var(--border);
+border-radius:28px;
+backdrop-filter:blur(14px);
+overflow:hidden;
+transition:.45s cubic-bezier(.22,1,.36,1);
+animation:fadeUp .8s ease both;
+}
+
+.card::before{
+content:'';
+position:absolute;
+inset:0;
+background:linear-gradient(135deg,rgba(212,175,55,.12),transparent 45%);
+opacity:0;
+transition:.4s;
+}
+
+.card:hover::before{
+opacity:1;
+}
+
+.card:hover{
+transform:translateY(-10px);
+border-color:rgba(212,175,55,.45);
+box-shadow:0 25px 60px rgba(0,0,0,.55),0 0 35px rgba(212,175,55,.12);
+}
+
+@keyframes fadeUp{
+from{
+opacity:0;
+transform:translateY(30px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.card h3{
+color:var(--accent);
+font-size:20px;
+margin-bottom:16px;
+font-family:'Playfair Display';
+}
+
+.card p{
+font-size:15px;
+opacity:.86;
+line-height:1.9;
+}
+
+.section-title{
+font-family:'Playfair Display';
+font-size:56px;
+text-align:center;
+margin-bottom:22px;
+}
+
+.subtext{
+max-width:900px;
+margin:auto;
+text-align:center;
+opacity:.78;
+font-size:16px;
+line-height:1.9;
+}
+
+/* Contact */
+.contact-box{
+max-width:760px;
+margin:60px auto 0;
+padding:42px;
+background:linear-gradient(145deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));
+border:1px solid var(--border);
+border-radius:28px;
+backdrop-filter:blur(14px);
+}
+
+input,textarea{
+width:100%;
+padding:16px;
+margin-top:16px;
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.06);
+border-radius:14px;
+color:white;
+font-size:15px;
+transition:.3s;
+}
+
+input:focus,
+textarea:focus{
+outline:none;
+border-color:rgba(212,175,55,.5);
+box-shadow:0 0 18px rgba(212,175,55,.15);
+}
+
+button.submit{
+margin-top:18px;
+width:100%;
+padding:16px;
+background:linear-gradient(90deg,#d4af37,#f3d36d);
+border:none;
+border-radius:16px;
+font-weight:700;
+cursor:pointer;
+transition:.3s;
+}
+
+button.submit:hover{
+transform:translateY(-3px);
+box-shadow:0 0 25px rgba(212,175,55,.35);
+}
+
+/* WhatsApp */
+.whatsapp{
+position:fixed;
+bottom:24px;
+right:24px;
+width:62px;
+height:62px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+background:#25D366;
+border-radius:50%;
+color:white;
+text-decoration:none;
+box-shadow:0 0 25px rgba(37,211,102,.5);
+transition:.3s;
+z-index:1200;
+}
+
+.whatsapp:hover{
+transform:scale(1.1);
+box-shadow:0 0 35px rgba(37,211,102,.7);
+}
+
+/* Footer */
+.footer{
+padding:50px 20px;
+text-align:center;
+border-top:1px solid rgba(255,255,255,0.06);
+opacity:.75;
+font-size:14px;
+margin-top:80px;
+}
+
+.footer-logo{
+font-family:'Playfair Display';
+font-size:28px;
+margin-bottom:10px;
+background:linear-gradient(90deg,#fff,#d4af37);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* Mobile */
+@media(max-width:900px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.main-title{
+font-size:44px;
+}
+
+header{
+padding:14px 20px;
+flex-direction:column;
+gap:10px;
+}
+
+nav{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.hero{
+padding-top:260px;
+}
+
+section{
+padding:90px 22px;
+}
+
+.section-title{
+font-size:38px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-banner">
+<div class="banner-track">
+CONSTEL ADVISORY OPERATES ONLY AS: Advisory & Facilitation Services • Assistance in IEPF Claim Processing • Documentation Support • Applications and filings are made by clients or authorised professionals under applicable regulatory frameworks.
+</div>
+</div>
+
+<header>
+<div class="logo">◉ C&A</div>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#services">Services</a>
+<a href="#process">Process</a>
+<a href="#aboutus">About Us</a>
+<a href="#whyus">Why Us</a>
+<a href="#contact">Contact</a>
+</nav>
+</header>
+
+<section id="home" class="hero">
+
+<h1 class="main-title">CONSTEL ADVISORY</h1>
+
+<p class="main-tagline">Trace to Restore</p>
+
+<div class="hero-divider"></div>
+
+<button class="cta">Start Share Recovery</button>
+
+<div class="grid">
+
+<div class="card">
+<h3>🔍 Asset Recovery</h3>
+<p>Tracing and recovering unclaimed shares, dividends, and legacy financial assets through structured processes.</p>
+</div>
+
+<div class="card">
+<h3>📄 IEPF & Documentation</h3>
+<p>End-to-end support for documentation, compliance, and IEPF claim handling with authorized representation.</p>
+</div>
+
+<div class="card">
+<h3>🛡️ Integrity & Precision</h3>
+<p>Confidential, compliant, and professionally managed processes ensuring accurate recovery outcomes.</p>
+</div>
+
+</div>
+</section>
+
+<section id="services">
+<h2 class="section-title">Core Services</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>🔹 Advisory on Share & Asset Recovery</h3>
+<p>Structured advisory for tracing and recovering unclaimed financial assets and legacy holdings.</p>
+</div>
+
+<div class="card">
+<h3>🔹 Assistance in IEPF Claim Processing</h3>
+<p>Guidance on IEPF claims, documentation, and procedural coordination support.</p>
+</div>
+
+<div class="card">
+<h3>🔹 Documentation Support</h3>
+<p>Preparation guidance for affidavits, declarations, indemnities, and supporting records.</p>
+</div>
+
+<div class="card">
+<h3>🔹 Coordination with Companies & RTAs</h3>
+<p>Procedural coordination with companies and Registrar & Transfer Agents.</p>
+</div>
+
+<div class="card">
+<h3>🔹 Share Recovery & Regularisation</h3>
+<p>Support in recovery and regularisation of holdings where records are unavailable.</p>
+</div>
+
+<div class="card">
+<h3>🔹 Transmission & Succession</h3>
+<p>Support in legal heir and succession-related procedural understanding.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="process">
+
+<h2 class="section-title">Process</h2>
+
+<div class="grid">
+
+<div class="card">
+<div style="font-size:38px;margin-bottom:18px;">📂</div>
+<h3>Case Assessment</h3>
+<p>Initial review, documentation analysis, and procedural feasibility evaluation.</p>
+</div>
+
+<div class="card">
+<div style="font-size:38px;margin-bottom:18px;">🔎</div>
+<h3>Tracing & Verification</h3>
+<p>Structured tracing, coordination, and verification with relevant entities and records.</p>
+</div>
+
+<div class="card">
+<div style="font-size:38px;margin-bottom:18px;">✔</div>
+<h3>Recovery Assistance</h3>
+<p>Documentation support, submission coordination, and procedural recovery assistance.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="aboutus">
+
+<h2 class="section-title">About Us</h2>
+
+<p class="subtext">
+At CONSTEL ADVISORY, our strength lies in a multidisciplinary team that combines corporate experience, legal insight, and operational expertise.
+</p>
+
+<div class="grid">
+
+<div class="card">
+<h3>🔹 Suresh A. Bavanasi</h3>
+<p>
+<strong>Chief Advisor & Consultant</strong><br><br>
+MBA, LL.B., PGCHRM (XLRI) with 33½ years of managerial experience at Hindustan Petroleum Corporation Limited across Marketing, Operations, Sales, and Administration.
+</p>
+</div>
+
+<div class="card">
+<h3>🔹 Samuel Diego</h3>
+<p>
+<strong>Consultant – Business Solutions & Coordination</strong><br><br>
+Experience in stakeholder coordination, client relations, business management, and banking exposure in Dubai.
+</p>
+</div>
+
+<div class="card">
+<h3>🔹 Legal Support</h3>
+<p>
+<strong>Independent Professionals</strong><br><br>
+Coordination with experienced legal professionals for succession, inheritance, probate, and legal heir documentation matters.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="whyus">
+
+<h2 class="section-title">Why Us</h2>
+
+<p class="subtext">
+We combine legal precision, structured processes, and confidentiality to deliver reliable financial asset recovery solutions.
+</p>
+
+<div class="grid">
+
+<div class="card">
+<h3>✔ Structured Approach</h3>
+<p>Defined processes ensure clarity and compliance.</p>
+</div>
+
+<div class="card">
+<h3>✔ Confidential Handling</h3>
+<p>Client data and cases handled securely.</p>
+</div>
+
+<div class="card">
+<h3>✔ Professional Expertise</h3>
+<p>Experienced advisory and legal coordination.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="contact">
+
+<h2 class="section-title">Contact</h2>
+
+<div class="contact-box">
+
+<input type="text" placeholder="Your Name">
+
+<input type="email" placeholder="Your Email">
+
+<textarea placeholder="Describe your case"></textarea>
+
+<button class="submit">Request Consultation</button>
+
+</div>
+
+</section>
+
+<a href="https://wa.me/91XXXXXXXXXX" class="whatsapp">💬</a>
+
+<footer class="footer">
+
+<div class="footer-logo">CONSTEL ADVISORY</div>
+
+<p>Trace to Restore</p>
+
+<p style="margin-top:14px;">
+Advisory & Facilitation Services • IEPF Assistance • Documentation Support
+</p>
+
+<p style="margin-top:10px;">
+Hyderabad, India • contact@consteladvisory.com
+</p>
+
+</footer>
+
+</body>
+</html>
